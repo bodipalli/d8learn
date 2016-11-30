@@ -1,0 +1,7 @@
+name: classmate
+type: module
+description: Its note book manufacture
+core: 8.x
+package: Custom
+dependencies:
+  - views

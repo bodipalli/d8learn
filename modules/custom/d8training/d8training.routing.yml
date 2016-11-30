@@ -1,0 +1,36 @@
+
+d8training.node_list_one:
+ path: "tab/list/tab1"
+ defaults:
+    # What's being returned is the entire response (not HTML, or even if HTML, we don't want additional blocks around it), so use _controller instead of _content.
+  _controller: 'Drupal\d8training\Controller\NodelistingController::contenttabone'
+ requirements:
+  _query_siteid_check: 'TRUE'
+
+
+
+d8training.node_list_two:
+ path: "tab/list/tab2"
+ defaults:
+    # What's being returned is the entire response (not HTML, or even if HTML, we don't want additional blocks around it), so use _controller instead of _content.
+   _controller: 'Drupal\d8training\Controller\NodelistingController::contenttabtwo'
+ requirements:
+   _permission: 'access content'
+
+d8training.node_list_show:
+
+ path: "/listshow/{arg}"
+ defaults:
+    # What's being returned is the entire response (not HTML, or even if HTML, we don't want additional blocks around it), so use _controller instead of _content.
+   _controller: 'Drupal\d8training\Controller\NodelistingController::contentshowtwo'
+ requirements:
+   _permission: 'access content'
+
+d8training.node_list_three:
+
+ path: "/listthree/{node}"
+ defaults:
+    # What's being returned is the entire response (not HTML, or even if HTML, we don't want additional blocks around it), so use _controller instead of _content.
+   _controller: 'Drupal\d8training\Controller\NodelistingController::contentshowthree'
+ requirements:
+   _permission: 'access content'

@@ -1,0 +1,8 @@
+d8training.node_list_one:
+ route_name: d8training.node_list_one
+ parent: system.admin_config_development
+ title: "Tab1" 
+
+
+
+

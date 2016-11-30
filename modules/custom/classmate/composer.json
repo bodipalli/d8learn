@@ -1,0 +1,14 @@
+{
+  "name": "drupal/classmate",
+  "type": "drupal-module",
+  "description": "Its note book manufacture",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/classmate",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/classmate",
+    "source": "http://cgit.drupalcode.org/classmate"
+  },
+  "require": { }
+}

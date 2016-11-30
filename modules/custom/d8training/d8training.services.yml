@@ -1,0 +1,5 @@
+services:
+  d8training.query_siteid_check:
+    class: Drupal\d8training\Controller\Querychecker
+    tags:
+      - { name: access_check, applies_to: _query_siteid_check }

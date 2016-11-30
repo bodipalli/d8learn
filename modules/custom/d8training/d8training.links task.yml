@@ -1,0 +1,11 @@
+
+d8training_menu_tab1:
+ route_name: d8training_menu_tab1
+ base_route: d8training_menu_tab1
+ title: "Tab1" 
+
+d8training_menu_tab2:
+ route_name: d8training_menu_tab1
+ base_route: d8training_menu_tab1
+ title: "Tab2" 
+

@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains classmate.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function classmate_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the classmate module.
+    case 'help.page.classmate':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Its note book manufacture') . '</p>';
+      return $output;
+
+    default:
+  }
+}
