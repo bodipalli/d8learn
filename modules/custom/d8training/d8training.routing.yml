@@ -5,9 +5,17 @@ d8training.node_list_one:
     # What's being returned is the entire response (not HTML, or even if HTML, we don't want additional blocks around it), so use _controller instead of _content.
   _controller: 'Drupal\d8training\Controller\NodelistingController::contenttabone'
  requirements:
-  _query_siteid_check: 'TRUE'
+   custom_access : 'Drupal\d8training\Controller\NodelistingController::contenttabone' 
 
-
+# form generation
+d8training.simple_form:  
+ path: "tab/list/form"
+ defaults:
+    # What's being returned is the entire response (not HTML, or even if HTML, we don't want additional blocks around it), so use _controller instead of _content.
+  _form: 'Drupal\d8training\Form\SimpleForm'
+  _title: 'My first form'
+ requirements:
+  _permission: 'access content'
 
 d8training.node_list_two:
  path: "tab/list/tab2"
@@ -34,3 +42,14 @@ d8training.node_list_three:
    _controller: 'Drupal\d8training\Controller\NodelistingController::contentshowthree'
  requirements:
    _permission: 'access content'
+
+d8training.myconfigformid:
+  path: '/admin/config/d8training/myconfigform'
+  defaults:
+    _form: '\Drupal\d8training\Form\myconfigform'
+    _title: 'myconfigform'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+

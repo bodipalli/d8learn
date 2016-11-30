@@ -3,3 +3,7 @@ services:
     class: Drupal\d8training\Controller\Querychecker
     tags:
       - { name: access_check, applies_to: _query_siteid_check }
+  d8training.form_manager:
+    class: Drupal\d8training\FormManager
+    arguments: ['@database']
+     

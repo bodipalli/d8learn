@@ -6,3 +6,10 @@ d8training.node_list_one:
 
 
 
+d8training.myconfigformid:
+  title: 'myconfigform'
+  route_name: d8training.myconfigformid
+  description: 'first config form'
+  parent: system.admin_config_system
+  weight: 99
+
