@@ -50,18 +50,18 @@ class googlebook extends BlockBase {
      $build = [];
 
      $build['googlebook_isbn']['#markup'] = '<p>' . $this->configuration['isbn'] . '</p>';
-     $client = new Client(['base_uri' => 'https://www.googleapis.com/books/v1/']);
+     //$client = new Client(['base_uri' => 'https://www.googleapis.com/books/v1/']);
       
-     $fetcher = new Fetcher($client);
+     //$fetcher = new Fetcher($client);
      // $book = $fetcher->forISBN('9780142181119');
 
-     $book = $fetcher->forISBN( $this->configuration['isbn']);
+     //$book = $fetcher->forISBN( $this->configuration['isbn']);
      
 
 
-     $build['googlebook_isbn']['#title'] = $this->configuration['isbn']->title;;
+     //$build['googlebook_isbn']['#title'] = $this->configuration['isbn']->title;;
       
-       $this->configuration['isbn']->subtitle;
+       //$this->configuration['isbn']->subtitle;
 
       // title subtitle
 

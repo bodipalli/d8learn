@@ -1,4 +1,4 @@
-weather_widget:
+global-styling:
     js:
       assets/js/weather.js: {}
       dependencies:
