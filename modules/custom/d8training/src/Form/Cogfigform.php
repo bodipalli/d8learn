@@ -23,7 +23,7 @@ class Cogfigform extends FormBase
 */
 
   public function getFormId() {
-     return 'amazing_forms_contribute_form';
+     return 'forms_contribute_form';
   }
   
   public function buildForm(array $form, FormStateInterface $form_state) {

@@ -1,0 +1,9 @@
+weather_widget:
+    js:
+      assets/js/weather.js: {}
+      dependencies:
+        - core/jquery
+    css:
+      theme:
+        assets/css/weather.css: {}
+

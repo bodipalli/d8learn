@@ -33,6 +33,7 @@ class myconfigform extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('d8training.myconfigform');
+    
     return parent::buildForm($form, $form_state);
   }
 
