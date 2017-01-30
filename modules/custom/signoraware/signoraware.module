@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains signoraware.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function signoraware_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the signoraware module.
+    case 'help.page.signoraware':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Signoraware is my luch carry box bag') . '</p>';
+      return $output;
+
+    default:
+  }
+}
