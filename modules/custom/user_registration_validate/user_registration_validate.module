@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * @file
+ * Contains user_registration_validate.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+/**
+ * Implements hook_help().
+ */
+function user_registration_validate_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the user_registration_validate module.
+    case 'help.page.user_registration_validate':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Validate the legnth of username and password.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function user_registration_validate_form_alter(&$form, &$form_state, $form_id) {
+ 	if ($form_id == 'user-register-form') {
+
+ 		$form['#validate'][] = '_form_username_pwd_validate';
+      //if ($form_state['values']['title'] == 'the quick fox jumped over the lazy dog') {
+        //form_set_error('title', t('You have added an invalid title.'));
+      //}
+    }
+
+
+  
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _form_username_pwd_validate($form, $form_state) {
+
+  //if ($form_state->hasValue('name')) {
+     $username = $form_state->getValue('name');
+
+    // if (strlen($username)>150) {
+        $form_state->setErrorByName('name', t('Your Name should be number'));
+    // }
+
+  //}
+}
