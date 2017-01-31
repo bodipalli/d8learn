@@ -1,0 +1,7 @@
+facebook_posts.fbsettings_form:
+  title: 'FB Settings'
+  route_name: facebook_posts.fbsettings_form
+  description: 'Facebook settings: Create the APP at facebook and get APP ID, SECRET and PAGE ID.'
+  parent: system.admin_config_system
+  weight: 99
+
