@@ -1,5 +1,0 @@
-access D8 training  content:
-  title: 'access D8 training permission testing'
-  description: 'access D8 training  content'
-permission_callbacks:
-  - \Drupal\d8training\Controller\Nodelistpermission::getPermissions
