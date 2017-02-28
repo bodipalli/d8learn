@@ -1,0 +1,77 @@
+<?php
+/**
+ * @file
+ * Allows integration with the Twitter microblogging service.
+ */
+
+
+ /**
+ * Implements hook_cron().
+ *
+ * Imports new Twitter statuses for site users, and deletes expired tweets.
+ */
+function twitter_cron() {
+  if (!variable_get('twitter_import', TRUE)) {
+    watchdog('twitter', 'The Twitter module is configured to not download tweets right now.');
+    return;
+  }
+
+  module_load_include('inc', 'twitter');
+
+  // Verify that there's at least one authenticated account that can be used to
+  // do API calls.
+  $twitter = twitter_connect(NULL, TRUE, TRUE);
+  if (empty($twitter)) {
+    watchdog('twitter', 'Unable to find an authenticated account to do API calls from.');
+    return FALSE;
+  }
+
+  watchdog('twitter', 'Starting to download tweets.');
+
+  // Pull up a list of Twitter accounts that are flagged for updating, sorted
+  // by how long it's been since we last updated them. This ensures that the
+  // most out-of-date accounts get updated first.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'twitter_account')
+    ->propertyCondition('uid', 0, '>')
+    ->propertyCondition('import', 1)
+    ->propertyOrderBy('last_refresh')
+    ->range(0, 20);
+  $result = $query->execute();
+  $ids = !empty($result['twitter_account']) ? array_keys($result['twitter_account']) : array();
+  if (count($ids)) {
+    $twitter_accounts = entity_load('twitter_account', $ids);
+    // Iterate over Twitter accounts and fetch tweets.
+    try {
+      foreach ($twitter_accounts as $twitter_account) {
+        // Fetch tweets for this account.
+        twitter_fetch_user_timeline($twitter_account->twitter_uid);
+
+        // Optionally fetch mentions.
+        if ($twitter_account->is_auth() && $twitter_account->mentions) {
+          twitter_fetch_mentions_timeline($twitter_account->twitter_uid);
+        }
+
+        // Mark the time this account was updated.
+        $twitter_account->last_refresh = REQUEST_TIME;
+        twitter_account_save($twitter_account);
+      }
+    }
+    catch (TwitterException $e) {
+      // The exception has already been logged so we do not need to do anything
+      // here apart from catching it.
+      watchdog('twitter', 'There was a problem loading tweets during cron.');
+    }
+  }
+
+  // Nuke old statuses.
+  if ($age = variable_get('twitter_expire', 0)) {
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'twitter_account')
+      ->propertyCondition('created_time', REQUEST_TIME - $age, '<');
+    $result = $query->execute();
+    entity_delete_multiple('twitter_account', array_keys($result['twitter_account']));
+  }
+
+  watchdog('twitter', 'Finished downloading tweets.');
+}
