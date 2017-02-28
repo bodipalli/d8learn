@@ -2,4 +2,4 @@ name: Facebook posts
 type: module
 description: This module is intended to fetch the facebook posts, images and likes for the post.
 core: 8.x
-package: package :SocialmediaSocialmedia
+package: Socialmedia

@@ -17,7 +17,7 @@ class FbsettingsForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'facebook_posts.fbsettings',
+      'facebook_posts.settings',
     ];
   }
 
@@ -32,13 +32,13 @@ class FbsettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('facebook_posts.fbsettings');
+    $config = $this->config('facebook_posts.settings');
     $form['fb_app_id'] = [
       '#type' => 'textfield',
       '#title' => $this->t('APP ID'),
       '#description' => $this->t('Facebook APP ID'),
-      '#maxlength' => 64,
-      '#size' => 64,
+      '#maxlength' => 50,
+      '#size' => 50,
       '#default_value' => $config->get('fb_app_id'),
     ];
     $form['fb_app_secret'] = [
@@ -53,8 +53,8 @@ class FbsettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => $this->t('PAGE ID'),
       '#description' => $this->t('Facebook PAGE ID'),
-      '#maxlength' => 64,
-      '#size' => 64,
+      '#maxlength' => 50,
+      '#size' => 50,
       '#default_value' => $config->get('fb_page_id'),
     ];
     return parent::buildForm($form, $form_state);
@@ -73,7 +73,7 @@ class FbsettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
 
-    $this->config('facebook_posts.fbsettings')
+    $this->config('facebook_posts.settings')
       ->set('fb_app_id', $form_state->getValue('fb_app_id'))
       ->set('fb_app_secret', $form_state->getValue('fb_app_secret'))
       ->set('fb_page_id', $form_state->getValue('fb_page_id'))
