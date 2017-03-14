@@ -45,27 +45,15 @@ class googlebook extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    
-
-     $build = [];
-
-     $build['googlebook_isbn']['#markup'] = '<p>' . $this->configuration['isbn'] . '</p>';
-     //$client = new Client(['base_uri' => 'https://www.googleapis.com/books/v1/']);
-      
-     //$fetcher = new Fetcher($client);
-     // $book = $fetcher->forISBN('9780142181119');
-
-     //$book = $fetcher->forISBN( $this->configuration['isbn']);
-     
-
-
-     //$build['googlebook_isbn']['#title'] = $this->configuration['isbn']->title;;
-      
-       //$this->configuration['isbn']->subtitle;
-
-      // title subtitle
-
+    $build = [];
+    $build['googlebook_isbn']['#markup'] = '<p>' . $this->configuration['isbn'] . '</p>';
+    //$client = new Client(['base_uri' => 'https://www.googleapis.com/books/v1/']);
+    //$fetcher = new Fetcher($client);
+    //$book = $fetcher->forISBN('9780142181119');
+    //$book = $fetcher->forISBN( $this->configuration['isbn']);
+    //$build['googlebook_isbn']['#title'] = $this->configuration['isbn']->title;;
+    //$this->configuration['isbn']->subtitle;
+    // title subtitle
     return $build;
   }
-
 }
