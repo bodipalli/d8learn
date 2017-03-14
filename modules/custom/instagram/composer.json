@@ -1,0 +1,14 @@
+{
+  "name": "drupal/instagram",
+  "type": "drupal-module",
+  "description": "Instagram API to fetch feeds and user likes.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/instagram",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/instagram",
+    "source": "http://cgit.drupalcode.org/instagram"
+  },
+  "require": { }
+}

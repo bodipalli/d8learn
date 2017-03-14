@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains instagram.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function instagram_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the instagram module.
+    case 'help.page.instagram':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Instagram API to fetch feeds and user likes.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
