@@ -2,6 +2,6 @@ instagram.instagram_settings_form:
   title: 'Instagram Settings'
   route_name: instagram.instagram_settings_form
   description: 'Instagram Settings'
-  parent: system.admin_config_system
+  parent: system.admin_config_services
   weight: 99
 

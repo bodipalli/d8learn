@@ -1,11 +1,6 @@
 <?php
 
 namespace Drupal\instagram;
-
-use Drupal\Core\Database\Driver\mysql\Connection;
-use Drupal\Core\Config\ConfigManager;
-use ArrayObject;
-
 /**
  * Class InstagranAPIService.
  *
@@ -14,32 +9,9 @@ use ArrayObject;
 class InstagranAPIService implements InstagranAPIServiceInterface {
 
   /**
-   * Drupal\Core\Database\Driver\mysql\Connection definition.
-   *
-   * @var Drupal\Core\Database\Driver\mysql\Connection
-   */
-  protected $database;
-
-  /**
-   * Drupal\Core\Config\ConfigManager definition.
-   *
-   * @var Drupal\Core\Config\ConfigManager
-   */
-  protected $config_manager;
-
-  /**
-   * ArrayObject definition.
-   *
-   * @var ArrayObject
-   */
-  protected $container_namespaces;
-  /**
    * Constructor.
    */
-  public function __construct(Connection $database, ConfigManager $config_manager, ArrayObject $container_namespaces) {
-    $this->database = $database;
-    $this->config_manager = $config_manager;
-    $this->container_namespaces = $container_namespaces;
+  public function __construct() {
   }
 
   /**
@@ -109,9 +81,9 @@ class InstagranAPIService implements InstagranAPIServiceInterface {
    *
    * @return void
    *
-   * @throws \MetzWeb\Instagram\InstagramException
+   * @throws \Instagram\InstagramException
    */
-  public function __construct($config)
+  public function setConfig($config)
   {
       if (is_array($config)) {
           // if you want to access user data
@@ -121,9 +93,10 @@ class InstagranAPIService implements InstagranAPIServiceInterface {
       } elseif (is_string($config)) {
           // if you only want to access public data
           $this->setApiKey($config);
-      } else {
-          throw new InstagramException('Error: __construct() - Configuration data is missing.');
-      }
+      } 
+      //else {
+        //  throw new InstagramException('Error: __construct() - Configuration data is missing.');
+      //}
   }
   /**
    * Generates the OAuth login URL.
@@ -132,7 +105,7 @@ class InstagranAPIService implements InstagranAPIServiceInterface {
    *
    * @return string Instagram OAuth login URL
    *
-   * @throws \MetzWeb\Instagram\InstagramException
+   * @throws \Instagram\InstagramException
    */
   public function getLoginUrl($scopes = array('basic'))
   {
@@ -140,7 +113,7 @@ class InstagranAPIService implements InstagranAPIServiceInterface {
           return self::API_OAUTH_URL . '?client_id=' . $this->getApiKey() . '&redirect_uri=' . urlencode($this->getApiCallback()) . '&scope=' . implode('+',
               $scopes) . '&response_type=code';
       }
-      throw new InstagramException("Error: getLoginUrl() - The parameter isn't an array or invalid scope permissions used.");
+    //  throw new InstagramException("Error: getLoginUrl() - The parameter isn't an array or invalid scope permissions used.");
   }
   /**
    * Search for a user.
@@ -281,14 +254,14 @@ class InstagranAPIService implements InstagranAPIServiceInterface {
    *
    * @return mixed
    *
-   * @throws \MetzWeb\Instagram\InstagramException
+   * @throws \Instagram\InstagramException
    */
   public function modifyRelationship($action, $user)
   {
       if (in_array($action, $this->_actions) && isset($user)) {
           return $this->_makeCall('users/' . $user . '/relationship', true, array('action' => $action), 'POST');
       }
-      throw new InstagramException('Error: modifyRelationship() | This method requires an action command and the target user id.');
+     // throw new InstagramException('Error: modifyRelationship() | This method requires an action command and the target user id.');
   }
   /**
    * Search media by its location.
@@ -480,7 +453,7 @@ class InstagranAPIService implements InstagranAPIServiceInterface {
    *
    * @return mixed
    *
-   * @throws \MetzWeb\Instagram\InstagramException
+   * @throws \Instagram\InstagramException
    */
   public function pagination($obj, $limit = 0)
   {
@@ -499,7 +472,7 @@ class InstagranAPIService implements InstagranAPIServiceInterface {
           }
           return $this->_makeCall($function, $auth, array('cursor' => $obj->pagination->next_cursor, 'count' => $limit));
       }
-      throw new InstagramException("Error: pagination() | This method doesn't support pagination.");
+      //throw new InstagramException("Error: pagination() | This method doesn't support pagination.");
   }
   /**
    * Get the OAuth data of a user by the returned callback code.
@@ -531,7 +504,7 @@ class InstagranAPIService implements InstagranAPIServiceInterface {
    *
    * @return mixed
    *
-   * @throws \MetzWeb\Instagram\InstagramException
+   * @throws \Instagram\InstagramException
    */
   protected function _makeCall($function, $auth = false, $params = null, $method = 'GET')
   {
@@ -541,7 +514,7 @@ class InstagranAPIService implements InstagranAPIServiceInterface {
       } else {
           // if the call needs an authenticated user
           if (!isset($this->_accesstoken)) {
-              throw new InstagramException("Error: _makeCall() | $function - This method requires an authenticated users access token.");
+             // throw new InstagramException("Error: _makeCall() | $function - This method requires an authenticated users access token.");
           }
           $authMethod = '?access_token=' . $this->getAccessToken();
       }
@@ -581,7 +554,7 @@ class InstagranAPIService implements InstagranAPIServiceInterface {
       // get the 'X-Ratelimit-Remaining' header value
       $this->_xRateLimitRemaining = $headers['X-Ratelimit-Remaining'];
       if (!$jsonData) {
-          throw new InstagramException('Error: _makeCall() - cURL error: ' . curl_error($ch));
+        //  throw new InstagramException('Error: _makeCall() - cURL error: ' . curl_error($ch));
       }
       curl_close($ch);
       return json_decode($jsonData);
@@ -593,7 +566,7 @@ class InstagranAPIService implements InstagranAPIServiceInterface {
    *
    * @return mixed
    *
-   * @throws \MetzWeb\Instagram\InstagramException
+   * @throws \Instagram\InstagramException
    */
   private function _makeOAuthCall($apiData)
   {
@@ -608,7 +581,7 @@ class InstagranAPIService implements InstagranAPIServiceInterface {
       curl_setopt($ch, CURLOPT_TIMEOUT, 90);
       $jsonData = curl_exec($ch);
       if (!$jsonData) {
-          throw new InstagramException('Error: _makeOAuthCall() - cURL error: ' . curl_error($ch));
+        //  throw new InstagramException('Error: _makeOAuthCall() - cURL error: ' . curl_error($ch));
       }
       curl_close($ch);
       return json_decode($jsonData);
