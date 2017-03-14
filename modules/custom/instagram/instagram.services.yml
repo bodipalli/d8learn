@@ -3,3 +3,7 @@ services:
     class: Drupal\instagram\InstagranAPIService
     arguments: ["@database", "@config.manager", "@container.namespaces"]
 
+  instagram.samsung:
+    class: Drupal\instagram\SamsungServer
+    arguments: []
+
