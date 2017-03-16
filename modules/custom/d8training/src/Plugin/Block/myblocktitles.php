@@ -70,17 +70,14 @@ class myblocktitles extends BlockBase implements ContainerFactoryPluginInterface
    // $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
    // $email = $curuser->getEmail();
 
-$email = \Drupal::currentUser()->getEmail();
-
-
-
+    $email = \Drupal::currentUser()->getEmail();
     $header = array(
         // The header gives the table the information it needs in order to make
         // the query calls for ordering. TableSort uses the field information
         // to know what database column to sort by.
-          array('data' => t('title'), 'field' => 'n.title'),
+      array('data' => t('title'), 'field' => 'n.title'),
           
-      );
+    );
 
     // SELECT `nid`, `vid`, `type`, `langcode`, `title`, `uid`, `status`, `created`, `changed` FROM `node_field_data` ORDER BY `node_field_data`.`created` ASC 
 
@@ -97,7 +94,6 @@ $email = \Drupal::currentUser()->getEmail();
          ->range(0, 3)
           //->orderByHeader($header)
           ->execute();
-
       $rows = array();
       foreach ($result as $row) {
         // Normally we would add some nice formatting to our rows
@@ -107,11 +103,8 @@ $email = \Drupal::currentUser()->getEmail();
 
         $cache_tags[] = $row->type.':'.$row->nid; 
       }
-
       $cache_tags[]= 'node_list';
       //$cache_tags[]= array('user_contexts'>'user');
-
-
       // Build the table for the nice output.
       $build = array(
           '#markup' => '<p>' . t('My Blocktitles.') . $email.'</p>',
@@ -122,15 +115,9 @@ $email = \Drupal::currentUser()->getEmail();
           '#context'=> array('user'),
           '#rows' => $rows,
       );
-
       return $build;
-
-
-
-  //  $build = [];
+    //$build = [];
     //$build['myblocktitles']['#markup'] = 'Implement myblocktitles.';
-    
-
     //return $build;
   }
 

@@ -14,8 +14,10 @@ use Drupal\Component\Serialization\Json;
  * @package Drupal\d8training
  */
 class OpenWeatherForecaster implements OpenWeatherForecasterInterface {
+  
   private $config;
   private $http_client;
+  
   /**
    * Constructor.
    */

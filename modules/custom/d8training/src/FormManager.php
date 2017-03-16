@@ -4,26 +4,20 @@ namespace Drupal\d8training;
 
 use Drupal\Core\Database\Driver\mysql\Connection;
 
-
-class FormManager
-{
-
+class FormManager {
 	
 	private $connection;
-
-	public function __construct( Connection $connection )
-	{
+  
+	public function __construct( Connection $connection ){
 		$this->connection = $connection;
-
 	}
 
 	public function fetchData() {
-       $sel = $this->connection->select('my_from', 'fd');
-       $sel->fields('fd', array());
-       $sel->range(0, 1);
-       $rs = $sel->execute()->fetchAssoc();
-       return $rs;
-
+    $sel = $this->connection->select('my_from', 'fd');
+    $sel->fields('fd', array());
+    $sel->range(0, 1);
+    $rs = $sel->execute()->fetchAssoc();
+    return $rs;
 	}
 
 /*
@@ -37,7 +31,5 @@ SELECT `first_name`, `last_name` FROM `my_from`
       'first_name' => $data['first_name'],
       'last_name' => $data['last_name'],
     ))->execute();
-
 	}
-
 }

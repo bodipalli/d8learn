@@ -50,13 +50,12 @@ class WeatherBlock extends BlockBase implements ContainerFactoryPluginInterface
 	public function blockForm($form, FormStateInterface $form_state) {
 	    
 	   
-	    $form['city_name'] = array(
-	      '#type' => 'textfield',
-	      '#default_value'=> $this->configuration['city_name'],
-	      '#title' => t('City Name'),
-	      '#required' => TRUE,
-	    );
-  
+	  $form['city_name'] = array(
+	    '#type' => 'textfield',
+	    '#default_value'=> $this->configuration['city_name'],
+	    '#title' => t('City Name'),
+	    '#required' => TRUE,
+	  );  
     
     $form['submit'] = array(
       '#type' => 'submit',
@@ -68,11 +67,8 @@ class WeatherBlock extends BlockBase implements ContainerFactoryPluginInterface
  public function build() {
 	 
 	$city_name = $this->configuration['city_name'];
-    
-    //$data =  $this->Weather->fetchWeatherData($city_name);
-
-   //return $data;
-
+   //$data =  $this->Weather->fetchWeatherData($city_name);
+  //return $data;
 	 return array (
 	    '#theme'=>'weather_widget',
 	    //'#weather_data'=> $data,
@@ -80,13 +76,10 @@ class WeatherBlock extends BlockBase implements ContainerFactoryPluginInterface
 	    '#attached'=>  array('library'=>'d8training/weather_widget' )
 	    
 	   );
-     
   }
 
   public function blockSubmit($form, FormStateInterface $form_state){
-
   	$this->configuration['city_name'] = $form_state->getValue('city_name');
-    
   }
 
 }

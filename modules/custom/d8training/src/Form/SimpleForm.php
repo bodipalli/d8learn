@@ -6,7 +6,6 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
 use Drupal\Core\Database\Driver\mysql\Connection;
 
 use Drupal\d8training\FormManager;
@@ -34,9 +33,6 @@ class SimpleForm extends FormBase  {
   public static function create(ContainerInterface $container) {
      return new static($container->get('d8training.form_manager'));
   }
-
-
-
    
   /**
    * {@inheritdoc}
@@ -70,41 +66,31 @@ class SimpleForm extends FormBase  {
     return $form;
   }
 
-   public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     
-  /*table : my_from
-SELECT `first_name`, `last_name` FROM `my_from` WHERE 1
-     */
-$data = array(
+      /*table : my_from
+    SELECT `first_name`, `last_name` FROM `my_from` WHERE 1
+         */
+    $data = array(
       'first_name' => $form_state->getValue('first_name'),
       'last_name' => $form_state->getValue('last_name'),
     );
-
-$this->form_mgr->addData( 'my_from', $data );
-
-/*
-  
-  $result = $this->database->insert('my_from') 
+    $this->form_mgr->addData( 'my_from', $data );
+    /*
+      $result = $this->database->insert('my_from') 
       ->fields ( array(
       'first_name' => $form_state->getValue('first_name'),
       'last_name' => $form_state->getValue('last_name'),
     ))->execute();
-*/
-
-
+    */
   }
 
-
-   public function validateForm(array &$form, FormStateInterface $form_state) {
+  public function validateForm(array &$form, FormStateInterface $form_state) {
     // Validate video URL.
     /*if (!UrlHelper::isValid($form_state->getValue('video'), TRUE)) {
       $form_state->setErrorByName('video', $this->t("The video url '%url' is invalid.", array('%url' => $form_state->getValue('video'))));
     }*/
   }
-
-
-
-
- }// end class
+}// end class
 
 

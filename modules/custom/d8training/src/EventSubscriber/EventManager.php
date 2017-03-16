@@ -9,17 +9,15 @@ use Symfony\Component\HttpKernel\KernelEvents;
 /**
 * 
 */
-class EventManager implements EventSubscriberInterface 
-{	
+class EventManager implements EventSubscriberInterface {
+	
 	public static function getSubscribedEvents(){
     $events[KernelEvents::RESPONSE][] = array('addEvents');
     return $events;
-    
-	}
+  }
 	public function addEvents(FilterResponseEvent  $filterRsevent){
-
-		$response = $filterRsevent->getRespone();
+    
+    $response = $filterRsevent->getRespone();
     $response->headers->add(['Acces-Control-Allow-Origin'] => '*');
-
   }
 }

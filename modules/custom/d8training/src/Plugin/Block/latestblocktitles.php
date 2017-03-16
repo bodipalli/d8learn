@@ -21,7 +21,6 @@ class latestblocktitles extends BlockBase {
   public function build() {
     $build = [];
     $build['latestblocktitles']['#markup'] = 'Implement latestblocktitles.';
-
     return $build;
   }
 
