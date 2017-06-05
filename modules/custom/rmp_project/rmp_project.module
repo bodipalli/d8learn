@@ -1,0 +1,90 @@
+<?php
+
+/**
+ * @file
+ * Contains rmp_project.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+/**
+ * Implements hook_help().
+ */
+function rmp_project_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the rmp_project module.
+    case 'help.page.rmp_project':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Project module') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function rmp_project_theme() {
+  $theme = [];
+  $theme['project'] = array(
+    'render element' => 'elements',
+    'file' => 'project.page.inc',
+    'template' => 'project',
+  );
+  $theme['project_form'] = array(
+    'render element' => 'form',
+    'file' => 'project.page.inc',
+    'template' => 'project-form',
+  );
+  return $theme;
+}
+
+/**
+* Implements hook_ENTITY_TYPE_update().
+*/
+function rmp_project_project_update(Drupal\Core\Entity\EntityInterface $entity) {
+  //Get current url
+  $current_path = \Drupal::service('path.current')->getPath();
+  $path = explode('/' , $current_path);
+  $currentUser = \Drupal::currentUser()->id();
+  $project_id = $entity->id();
+  if($currentUser == 1 && in_array('admin' , $path) && in_array('structure' , $path) && in_array('project' , $path) && in_array('edit' , $path)) {
+    //Redirect to resource_mapping page
+    $url = Url::fromUri('internal:/admin/structure/resource_mapping/' . $project_id)->toString();
+    $response = new RedirectResponse($url);
+    $response->send();
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function rmp_project_project_insert(Drupal\Core\Entity\EntityInterface $entity) {
+  //Get current url
+  $current_path = \Drupal::service('path.current')->getPath();
+  $path = explode('/' , $current_path);
+  $currentUser = \Drupal::currentUser()->id();
+  $project_id = $entity->id();
+  if($currentUser == 1 && in_array('admin' , $path) && in_array('structure' , $path) && in_array('project' , $path) && in_array('add' , $path)) {
+    //Redirect to resource_mapping page
+    $url = Url::fromUri('internal:/admin/structure/resource_mapping/' . $project_id)->toString();
+    $response = new RedirectResponse($url);
+    $response->send();
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function rmp_project_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+
+  $current_user = \Drupal::currentUser()->id();
+  if($form_id == 'project_edit_form' || $form_id == 'project_add_form' && $current_user == 1) {
+    $form['actions']['submit']['#value'] = t('Next');
+  }
+}
+

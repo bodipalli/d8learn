@@ -1,0 +1,112 @@
+<?php
+
+/**
+ * @file
+ * Project install file.
+ */
+
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field_collection\Entity\FieldCollection;
+use Drupal\field_collection\Entity\FieldCollectionItem;
+
+/**
+ * Implements hook_install().
+ */
+function rmp_project_install() {
+
+  // Create a field_collection field to use for the tests.
+  $field_collection_name = 'field_project_code_collection';
+  $field_collection_field_storage = FieldStorageConfig::create([
+    'field_name' => $field_collection_name,
+    'entity_type' => 'project',
+    'type' => 'field_collection',
+    'cardinality' => -1,
+  ]);
+
+  $field_collection_field_storage->save();
+  // Create an text field inside the field_collection.
+  $inner_field_name = 'field_project_code';
+
+  $inner_field_storage = FieldStorageConfig::create([
+    'field_name' => $inner_field_name,
+    'entity_type' => 'field_collection_item',
+    'type' => 'string',
+  ]);
+  $inner_field_storage->save();
+
+  $inner_field_definition = [
+    'field_name' => $inner_field_name,
+    'entity_type' => 'field_collection_item',
+    'bundle' => $field_collection_name,
+    'field_storage' => $inner_field_storage,
+    'label' => 'Project code',
+    'description' => 'Project code for this pursuit',
+    'settings' => [],
+  ];
+
+  $inner_field = FieldConfig::create($inner_field_definition);
+  $inner_field->save();
+
+  entity_get_form_display('field_collection_item', $field_collection_name, 'default')
+    ->setComponent($inner_field_name, array('type' => 'text_textfield'))
+    ->save();
+
+  entity_get_display('field_collection_item', $field_collection_name, 'default')
+    ->setComponent($inner_field_name, array('type' => 'string'))
+    ->save();
+  //next field  
+  $field_project_name = 'field_project_name';
+
+  $inner_field_storage = FieldStorageConfig::create([
+    'field_name' => $field_project_name,
+    'entity_type' => 'field_collection_item',
+    'type' => 'string',
+  ]);
+  $inner_field_storage->save();
+
+  $inner_field_definition = [
+    'field_name' => $field_project_name,
+    'entity_type' => 'field_collection_item',
+    'bundle' => $field_collection_name,
+    'field_storage' => $inner_field_storage,
+    'label' => 'Project Name',
+    'description' => 'Project name for this pursuit',
+    'settings' => [],
+  ];
+
+  $inner_field = FieldConfig::create($inner_field_definition);
+  $inner_field->save();
+
+  entity_get_form_display('field_collection_item', $field_collection_name, 'default')
+    ->setComponent($field_project_name, array('type' => 'text_textfield'))
+    ->save();
+
+  entity_get_display('field_collection_item', $field_collection_name, 'default')
+    ->setComponent($field_project_name, array('type' => 'string'))
+    ->save();  
+
+  //Adding the field collection field to project
+  $field_collection_definition = [
+      'field_name' => $field_collection_name,
+      'entity_type' => 'project',
+      'bundle' => 'project',
+      'field_storage' => $field_collection_field_storage,
+      'label' => 'Project code',
+      'description' => 'Project code description',
+      'settings' => [],
+    ];
+
+  $field_config = FieldConfig::create($field_collection_definition);
+  $field_config->save();
+  
+  entity_get_form_display('project', 'project', 'default')
+    ->setComponent($field_collection_name, array('type' => 'field_collection_embed'))
+    ->save();
+
+  entity_get_display('project', 'project', 'default')
+    ->setComponent($field_collection_name, array('type' => 'field_collection_editable'))
+    ->save();
+}

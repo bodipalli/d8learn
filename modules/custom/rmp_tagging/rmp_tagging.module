@@ -1,0 +1,156 @@
+<?php
+
+/**
+ * @file
+ * Contains rmp_tagging.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function rmp_tagging_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the rmp_tagging module.
+    case 'help.page.rmp_tagging':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('tagging entity') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function rmp_tagging_theme() {
+  $theme = [];
+  $theme['tagging'] = array(
+    'render element' => 'elements',
+    'file' => 'tagging.page.inc',
+    'template' => 'tagging',
+  );
+  $theme['tagging_form'] = array(
+    'render element' => 'form',
+    'file' => 'tagging.page.inc',
+    'template' => 'tagging-form',
+  );
+  return $theme;
+}
+
+/**
+* Implements hook_entity_update().
+*/
+function rmp_tagging_entity_update(Drupal\Core\Entity\EntityInterface $entity) {
+  $type = $entity->getEntityTypeId();
+  //Check entity type
+  if ($type == 'tagging') {
+    $resource = $entity->get("resource_id")->getValue();
+    $resource_id = isset($resource[0])? $resource[0]['target_id']: '';
+    $tagging_status = $entity->get("tagging_status")->getValue();
+    $tagging_status_tid = isset($tagging_status[0])? $tagging_status[0]['target_id']: '';
+    if (!empty($resource_id) && !empty($tagging_status_tid)) {
+      //Get the tagging_status taxonomy term
+      $term = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->load($tagging_status_tid);
+      $term_name_data = $term->get("name")->getValue();
+      $tagging_status_name = isset($term_name_data[0])? $term_name_data[0]['value']: '';
+
+      //Get the resource_status taxonomy terms
+      $terms = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->loadTree('resource_status', $parent = 0, $max_depth = NULL, $load_entities = FALSE);
+      foreach ($terms as $term) {
+        $resource_status[$term->name] = $term->tid;
+      }
+
+      //Get the current active status
+      $active_status_data = $entity->get("active")->getValue();
+      $active_status = isset($active_status_data[0])? $active_status_data[0]['value']: '';
+
+      $current_status_value = '';
+      if ($tagging_status_name == 'Blocked') {
+        $current_status_value = $resource_status['Blocked'];
+      }
+      else if ($tagging_status_name == 'Tagged') {
+        $current_status_value = $resource_status['Billing'];
+      }
+      else {
+        $current_status_value = $resource_status['Bench'];
+      }
+
+      $project_id_data = $entity->get("project_id")->getValue();
+      $project_id = isset($project_id_data[0])? $project_id_data[0]['target_id']: '';
+
+      //Get all existing_tagging_with_active
+      $existing_tagging_with_active = \Drupal::entityQuery('tagging')
+        ->condition('status', 1)
+        ->condition('active', 1)
+        ->condition('project_id', $project_id, '<>')
+        ->sort('changed', 'ASC')
+        ->execute();
+      //Set current_status Bench  if inactive
+      if (empty($active_status) && empty($existing_tagging_with_active)) {
+        $current_status_value = $resource_status['Bench'];
+      }
+
+      //Get user
+      $user = \Drupal::entityTypeManager()->getStorage('user')->load($resource_id);
+      if (!empty($term) && !empty($user)) {
+        //Update resource current_status
+        $user->set('field_current_status', $current_status_value);
+        $user->save();
+      }
+    }
+  }
+
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function rmp_tagging_entity_insert(Drupal\Core\Entity\EntityInterface $entity) {
+  $type = $entity->getEntityTypeId();
+  //Check entity type
+  if ($type == 'tagging') {
+    $resource = $entity->get("resource_id")->getValue();
+    $resource_id = isset($resource[0])? $resource[0]['target_id']: '';
+    $tagging_status = $entity->get("tagging_status")->getValue();
+    $tagging_status_tid = isset($tagging_status[0])? $tagging_status[0]['target_id']: '';
+    if (!empty($resource_id) && !empty($tagging_status_tid)) {
+      //Get the tagging_status taxonomy term
+      $term = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->load($tagging_status_tid);
+      $term_name_data = $term->get("name")->getValue();
+      $tagging_status_name = isset($term_name_data[0])? $term_name_data[0]['value']: '';
+
+      //Get the resource_status taxonomy terms
+      $terms = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->loadTree('resource_status', $parent = 0, $max_depth = NULL, $load_entities = FALSE);
+      foreach ($terms as $term) {
+        $resource_status[$term->name] = $term->tid;
+      }
+
+      $current_status_value = '';
+      if ($tagging_status_name == 'Blocked') {
+        $current_status_value = $resource_status['Blocked'];
+      }
+      else if ($tagging_status_name == 'Tagged') {
+        $current_status_value = $resource_status['Billing'];
+      }
+      else {
+        $current_status_value = $resource_status['Bench'];
+      }
+      $active_status_data = $entity->get("active")->getValue();
+      $active_status = isset($active_status_data[0])? $active_status_data[0]['value']: '';
+      if ($active_status == 0) {
+        $current_status_value = $resource_status['Bench'];
+      }
+      //Get user
+      $user = \Drupal::entityTypeManager()->getStorage('user')->load($resource_id);
+      if (!empty($term) && !empty($user)) {
+        //Update resource current_status
+        $user->set('field_current_status', $current_status_value);
+        $user->save();
+      }
+    }
+  }
+}

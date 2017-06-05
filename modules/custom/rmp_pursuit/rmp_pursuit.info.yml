@@ -1,0 +1,7 @@
+name: RMP Pursuit entity
+type: module
+description: Pursuit entity informations
+core: 8.x
+package: Custom
+dependencies:
+  - rmp_client

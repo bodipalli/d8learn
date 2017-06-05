@@ -1,0 +1,144 @@
+<?php
+/**
+ * @file
+ * Functions to support theming in the Business theme.
+ */
+define('THEME_PATH', base_path() . drupal_get_path('theme', 'business'));
+
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Utility\Xss;
+use Drupal\Core\Template\Attribute;
+use Drupal\file\Plugin\Core\Entity\FileInterface;
+
+/**
+ * Override or insert variables into the page template.
+ */
+function business_preprocess_page(&$vars) {
+  $color = theme_get_setting('business_color', 'business');
+  $vars['#attached']['library'][] = "business/color-{$color}";
+
+  // Add information about the number of sidebars.
+  if (!empty($vars['page']['sidebar_first']) && !empty($vars['page']['sidebar_second'])) {
+    $vars['contentlayout'] = 'col-md-6 col-sm-6';
+    $vars['sidebarfirst'] = 'col-md-3 col-sm-3';
+    $vars['sidebarsecond'] = 'col-md-3 col-sm-3';
+  }
+
+  elseif (!empty($vars['page']['sidebar_first'])) {
+    $vars['contentlayout'] = 'col-md-8 col-sm-8 ';
+    $vars['sidebarfirst'] = 'col-md-4 col-sm-4';
+  }
+
+  elseif (!empty($vars['page']['sidebar_second'])) {
+    $vars['contentlayout'] = 'col-md-8 sol-sm-8 ';
+    $vars['sidebarsecond'] = 'col-md-4 col-sm-4';
+  }
+
+  else {
+    $vars['contentlayout'] = 'col-lg-12 centered ';
+  }
+
+  // Copyright.
+  $vars['copyright'] = NULL;
+  if (theme_get_setting('footer_copyright', 'business') || theme_get_setting('footer_credits', 'business')) {
+    if (theme_get_setting('footer_copyright', 'business')) {
+      $footer_copyright = array(
+        '@date' => format_date(REQUEST_TIME, 'custom', 'Y'),
+        '@sitename' => \Drupal::config('system.site')->get('name'),
+      );
+      $vars['copyright']['footer_copyright'] = t("Copyright &copy; @date, @sitename", $footer_copyright);
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * @param $form
+ *   The form.
+ * @param $form_state
+ *   The form state.
+ */
+function business_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+
+  $form['busi_settings'] = array(
+    '#type' => 'details',
+    '#title' => t('Business Settings'),
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+  );
+  $form['busi_settings']['color'] = array(
+    '#type' => 'details',
+    '#title' => t('Color Switcher'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['busi_settings']['color']['business_color'] = array(
+    '#type' => 'select',
+    '#title' => t('Colors'),
+    '#default_value' => theme_get_setting('business_color', 'business'),
+    '#description'   => t("Choose any one color from the list"),
+    '#options' => array(
+      'blue' => t('BLUE'),
+    ),
+  );
+ 
+  $filename = drupal_get_path('theme', 'business') . '/business.theme';
+  $form_state->addBuildInfo('files', array($filename));
+  // Custom submit to save the file permenant.
+  $form['#submit'][] = 'business_settings_form_submit';
+}
+
+/**
+ * Custom submit handler for integrity settings form.
+ */
+function business_settings_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $account = \Drupal::currentUser();
+  $values = $form_state->getValues();
+      if ($file = \Drupal\file\Entity\File::load($values["slide_image_{$i}"][0])) {
+        // Change status to permanent.
+        $file->setPermanent();
+        $file->save();
+        $file_usage = \Drupal::service('file.usage');
+        $file_usage->add($file, 'user', 'user', $account->id());
+      }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function business_theme() {
+	$theme = [];
+	$theme['user'] = array(
+		'render element' => 'elements',
+		'template' => 'user',
+	);
+	$theme['user_form'] = array(
+		'render element' => 'form',
+		'template' => 'user-form',
+	);
+	return $theme;
+}
+
+/**
+ * Implements hook_preprocess_user().
+ */
+function business_preprocess_user(&$variables) {
+	/** @var User $account */
+	$account = $variables['elements']['#user'];
+	$variables['username'] = $account->getDisplayName();
+	$variables['email'] = $account->getEmail();
+}
+
+function business_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id){
+	$user = \Drupal::currentUser();
+	$uid = \Drupal::currentUser()->id();
+	$roles = $user->getRoles();
+	if(!in_array('administrator',$roles)) {
+		if($form_id = "user_register_form"){
+			$form['account']['mail']['#description'] = '';
+			$form['account']['name']['#description'] = '';
+			
+		}
+	}
+}

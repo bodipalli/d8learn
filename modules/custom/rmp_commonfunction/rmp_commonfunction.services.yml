@@ -1,0 +1,8 @@
+# Module services file rmp_commonfunction.services.yml
+
+services:
+
+    rmp_commonfunction.theme.negotiator:
+        class: Drupal\rmp_commonfunction\Theme\ThemeNegotiator
+        tags:
+          - { name: theme_negotiator, priority: 1000 }

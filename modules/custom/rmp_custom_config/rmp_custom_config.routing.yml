@@ -1,0 +1,10 @@
+rmp_custom_config.rmp_pursuit_email_config:
+  path: '/admin/config/rmp_custom_config/rmp_pursuit_email_config'
+  defaults:
+    _form: '\Drupal\rmp_custom_config\Form\RMPPursuitEmailConfig'
+    _title: 'RMP Pursuit Email Config'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+

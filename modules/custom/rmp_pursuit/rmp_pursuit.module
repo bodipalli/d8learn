@@ -1,0 +1,219 @@
+<?php
+
+/**
+ * @file
+ * Contains rmp_pursuit.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\views\Views;
+use Drupal\Core\Url;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Datetime\DrupalDateTime;
+
+/**
+ * Implements hook_help().
+ */
+function rmp_pursuit_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the rmp_pursuit module.
+    case 'help.page.rmp_pursuit':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Pursuit') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function rmp_pursuit_theme() {
+  $theme = [];
+  $theme['pursuit'] = array(
+    'render element' => 'elements',
+    'file' => 'pursuit.page.inc',
+    'template' => 'pursuit',
+  );
+  $theme['pursuit_form'] = array(
+    'render element' => 'form',
+    'file' => 'pursuit.page.inc',
+    'template' => 'pursuit-form',
+  );
+  return $theme;
+}
+
+/**
+* Implements hook_theme_suggestions_HOOK().
+*/
+function rmp_pursuit_theme_suggestions_pursuit(array $variables) {
+  $suggestions = array();
+  $entity = $variables['elements']['#pursuit'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'pursuit__' . $sanitized_view_mode;
+  $suggestions[] = 'pursuit__' . $entity->bundle();
+  $suggestions[] = 'pursuit__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'pursuit__' . $entity->id();
+  $suggestions[] = 'pursuit__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}
+
+/**
+* Implements hook_ENTITY_TYPE_update().
+*/
+function rmp_pursuit_pursuit_update(Drupal\Core\Entity\EntityInterface $entity) {
+  // Update the entity's entry in modified_by field data.
+  db_update('pursuit')
+    ->fields(array(
+      'modified_by' => \Drupal::currentUser()->id(),
+    ))
+    ->condition('id', $entity->id())
+    ->execute();
+  // On pursuit update create/update project entity depends on WON status.
+  rmp_pursuit_pursuit_to_project_creation_updation($entity);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function rmp_pursuit_pursuit_insert(Drupal\Core\Entity\EntityInterface $entity) {
+  // On pursuit insert creation project entity depends on WON status.
+  rmp_pursuit_pursuit_to_project_creation_updation($entity);
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function rmp_pursuit_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+
+  $current_user = \Drupal::currentUser()->id();
+  if($form_id == 'pursuit_edit_form' || $form_id == 'pursuit_add_form') {
+    if ($current_user == 1) {
+      $form['actions']['submit']['#value'] = t('Next');
+    }
+    if (isset($form['submission_date']['widget'])) {
+      $timestamp = time();
+      $form['submission_date']['widget'][0]['value']['#default_value'] = DrupalDateTime::createFromTimestamp($timestamp);
+    }
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function rmp_pursuit_form_views_ui_config_item_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  //get view
+  $view = $form_state->getStorage()['view'];
+  $executable = $view->getExecutable();
+  $field_options_all = $executable->display_handler->getFieldLabels();
+  $view_id = $executable->storage->get('id');
+  if (!empty($form['options']['expose']['autocomplete_field'])) {
+    $form['options']['expose']['autocomplete_field']['#options']  = $field_options_all;
+  }
+}
+
+/**
+ * Create or update project when pursuit won and save.
+ */
+function rmp_pursuit_pursuit_to_project_creation_updation($entity) {
+  ///Get all project values
+  $currentUser = \Drupal::currentUser()->id();
+  $term_data = $entity->get("pursuit_status")->getValue();
+  $term_id = isset($term_data[0])? $term_data[0]['target_id'] : '';
+  if (!empty($term_id)) {
+    $pursuit_status = \Drupal\taxonomy\Entity\Term::load($term_id)->name->value;
+    if (!empty($pursuit_status) && strtolower($pursuit_status) == 'won') {
+
+      //Get all data
+      $name_data = $entity->get("name")->getValue();
+      $name = isset($name_data[0])? $name_data[0]['value']: "";
+      $client_name_data = $entity->get("client_name")->getValue();
+      $client_name = isset($client_name_data[0])? $client_name_data[0]['target_id']: "";
+      $technology_data = $entity->get("technology")->getValue();
+      $technology = isset($technology_data[0])? $technology_data[0]['target_id']: "";
+      $sbu_data = $entity->get("sbu")->getValue();
+      $sbu = isset($sbu_data[0])? $sbu_data[0]['target_id']: "";
+      $sector_data = $entity->get("sector")->getValue();
+      $sector = isset($sector_data[0])? $sector_data[0]['target_id']: "";
+      $country_data = $entity->get("country")->getValue();
+      $country = isset($country_data[0])? $country_data[0]['target_id']: "";
+      $fte_data = $entity->get("fte")->getValue();
+      $fte = isset($fte_data[0])? $fte_data[0]['value'] : "";
+      $start_date_data = $entity->get("start_date")->getValue();
+      $start_date = isset($start_date_data[0])? $start_date_data[0]['value']: "";
+      $end_date_data = $entity->get("end_date")->getValue();
+      $end_date = isset($end_date_data[0])? $end_date_data[0]['value']: "";
+
+      //Create project
+      $project_values = array(
+        'user_id' => $currentUser,
+        'name' => $name,
+        'account_name' => '',
+        'project_manager' => '',
+        'delivery_manager' => '',
+        'start_date' => $start_date,
+        'end_date' => $end_date,
+        'proj_tag_code' => '',
+        'pursuit_id' => $entity->id(),
+        'client_id' => $client_name,
+        'technology'=> $technology,
+        'bu' => '',
+        'sbu' => $sbu,
+        'sector' => $sector,
+        'country' => $country,
+        'fte' => $fte,
+        'archive'=> '',
+        'status' => 1,
+        'created' => time(),
+        'changed' => time(),
+      );
+      $existing_projects = \Drupal::entityQuery('project')
+        ->condition('status', 1)
+        ->condition('pursuit_id.target_id', $entity->id())
+        ->execute();
+      if(!empty($existing_projects)) {
+        $existing_project_id = '';
+        foreach($existing_projects as $existing_project) {
+          $existing_project_id = $existing_project;
+        }
+        //Load project
+        $project = entity_load('project' , $existing_project_id);
+        $project->set("client_id", $client_name);
+        $project->set("technology", $technology);
+        $project->set("country", $country);
+        $project->set("sbu", $sbu);
+        $project->set("sector", $sector);
+        $project->set("fte", $fte);
+        $project->set("start_date", $start_date);
+        $project->set("end_date", $end_date);
+        $project->set("changed", time());
+        $project->save();
+        $project_id = $project->id();
+        \Drupal::logger('rmp_pursuit')->debug('Pursuit won project updated --- ');
+      }
+      else {
+        $project = entity_create('project', $project_values);
+        $project->save();
+        $project_id = $project->id();
+        \Drupal::logger('rmp_pursuit')->debug('Pursuit won project created --- ');
+      }
+      //Set email message
+      drupal_set_message('Won the Pursuit. Email send successfully');
+
+      if($currentUser == 1) {
+        //Redirect to project page
+        $url = Url::fromUri('internal:/admin/structure/project/' . $project_id ."/edit")->toString();
+        $response = new RedirectResponse($url);
+        $response->send();
+      }
+      else {
+        //Redirect to project page
+        $url = Url::fromUri('internal:/admin/structure/project/' . $project_id)->toString();
+        $response->send();
+      }
+    }
+  }
+}

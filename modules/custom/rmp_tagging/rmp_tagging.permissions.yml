@@ -1,0 +1,22 @@
+add tagging entities:
+  title: 'Create new Tagging entities'
+
+administer tagging entities:
+  title: 'Administer Tagging entities'
+  description: 'Allow to access the administration form to configure Tagging entities.'
+  restrict access: true
+
+delete tagging entities:
+  title: 'Delete Tagging entities'
+
+edit tagging entities:
+  title: 'Edit Tagging entities'
+
+access tagging overview:
+  title: 'Access the Tagging overview page'
+
+view published tagging entities:
+  title: 'View published Tagging entities'
+
+view unpublished tagging entities:
+  title: 'View unpublished Tagging entities'

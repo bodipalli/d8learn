@@ -1,0 +1,7 @@
+rmp_custom_config.rmp_pursuit_email_config:
+  title: 'RMP Pursuit Email Config'
+  route_name: rmp_custom_config.rmp_pursuit_email_config
+  description: 'A description for the menu entry'
+  parent: system.admin_config_system
+  weight: 99
+

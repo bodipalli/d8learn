@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains rmp_commonfunction.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function rmp_commonfunction_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the rmp_commonfunction module.
+    case 'help.page.rmp_commonfunction':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Common function throughout the site') . '</p>';
+      return $output;
+
+    default:
+  }
+}

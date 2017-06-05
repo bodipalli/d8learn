@@ -1,0 +1,14 @@
+
+# Tagging menu items definition
+entity.tagging.collection:
+  title: 'Tagging list'
+  route_name: entity.tagging.collection
+  description: 'List Tagging entities'
+  parent: system.admin_structure
+  weight: 100
+
+tagging.admin.structure.settings:
+  title: Tagging settings
+  description: 'Configure Tagging entities'
+  route_name: tagging.settings
+  parent: system.admin_structure

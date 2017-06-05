@@ -1,0 +1,14 @@
+{
+  "name": "drupal/rmp_project",
+  "type": "drupal-module",
+  "description": "Project module",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/rmp_project",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/rmp_project",
+    "source": "http://cgit.drupalcode.org/rmp_project"
+  },
+  "require": { }
+}

@@ -1,0 +1,5 @@
+name: RMP Resource mapping form
+type: module
+description: Resources are mapping with this form moduel.
+core: 8.x
+package: Custom

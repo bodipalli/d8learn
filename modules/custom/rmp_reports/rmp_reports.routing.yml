@@ -1,0 +1,17 @@
+
+rmp_reports.rmp_utilization_practice_view:
+  path: '/rmp_reports/form/rmp_utilization_practice_view'
+  defaults:
+    _form: '\Drupal\rmp_reports\Form\RmpUtilizationPracticeView'
+    _title: 'RmpUtilizationPracticeView'
+  requirements:
+    _access: 'TRUE'
+
+rmp_reports.rmp_import_excel_form:
+  path: '/rmp_reports/form/rmp_import_excel'
+  defaults:
+    _form: '\Drupal\rmp_reports\Form\RmpImportExcelForm'
+    _title: 'RmpImportExcelForm'
+  requirements:
+    _access: 'TRUE'
+  

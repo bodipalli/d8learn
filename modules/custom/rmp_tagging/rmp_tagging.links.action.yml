@@ -1,0 +1,5 @@
+entity.tagging.add_form:
+  route_name: entity.tagging.add_form
+  title: 'Add Tagging'
+  appears_on:
+    - entity.tagging.collection

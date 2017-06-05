@@ -1,0 +1,17 @@
+
+# In order to to create pages it is necessary to define routes for them.
+# A route maps a URL path to a controller. It defines what function
+# or method will be called when a URL is accessed.
+# If the user accesses http://drupal8.dev//rmp_resource_import/importer, the routing
+# system will look for a route with that path. In this case it will find a
+# match, and execute the _controller callback. In this case the callback is
+# defined as a classname
+# ("\Drupal\rmp_resource_import\Controller\ResourceimportController")
+# and a method ("resourceimporter").
+rmp_resource_import.resourceimport_controller_resourceimporter:
+  path: '/rmp_resource_import/importer'
+  defaults:
+    _controller: '\Drupal\rmp_resource_import\Controller\ResourceimportController::resourceimporter'
+    _title: 'Importer'
+  requirements:
+    _permission: 'access content'

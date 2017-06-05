@@ -1,0 +1,69 @@
+<!-- Add you custom twig html here -->
+{#
+/**
+ * @file resource-mapping-form.html.twig
+ * Default theme implementation to present resource-mapping Form data.
+ *
+ * This template is used when viewing resource-mapping Add/Edit pages.
+ *
+ *
+ * Available variables:
+ * - form: A list of form items. Use 'form' to print all form items, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_resource_mapping_form()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% if form %}
+<div{{ attributes.addClass('resource-mapping') }}>
+<div class="row rmp-resource-mapping-form">
+   {{ form.form_build_id }}
+   {{ form.form_token }}
+   {{ form.form_id }}
+   {% if form.pursuit_name%}
+    <div class="project-info">
+    <div class="col-md-4">
+      {% if form.pursuit_name %}
+      {{form.pursuit_name}}
+      {% endif %}
+	</div>
+	<div class="col-md-4">	
+	  {% if form.client_name %}
+      {{form.client_name}}
+      {% endif %}
+	</div>
+	<div class="col-md-4">	
+	  {% if form.sbu %}
+      {{form.sbu}}
+      {% endif %}
+    </div>
+    <div class="col-md-12 reporting-manager">
+      {% if form.reporting_manager %}
+      {{form.reporting_manager}}
+      {% endif %}
+    </div>
+    <div class="col-md-12 field-collection">
+      <div>{{ form.project_fc }}</div>
+    </div>
+    </div>
+   {% endif %}
+   {% if form.resource_details%}
+    <div class="col-md-12 resource-details">
+       <div class="col-md-12>{{ form.resource_details }}</div>
+    </div>
+   {% endif %}
+   <div class="col-md-12 resource-details-action">
+    {{form.project_id}}
+    {{form.pursuit_id}}
+    {{form.client_id}}
+    {{form.sbu_tid}}
+    {% if form.actions %}
+    {{ form.actions.submit }}
+    {% endif %}
+   </div>
+</div>
+</div>
+{% endif %}

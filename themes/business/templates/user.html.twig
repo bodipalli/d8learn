@@ -1,0 +1,106 @@
+{#
+/**
+ * @file
+ * Default theme implementation to present all user data.
+ *
+ * This template is used when viewing a registered user's page,
+ * e.g., example.com/user/123. 123 being the user's ID.
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.field_example'. Fields attached to a user
+ *   such as 'user_picture' are available as 'content.user_picture'.
+ * - attrifield_age_buckettes: HTML attrifield_age_buckettes for the container element.
+ * - user: A Drupal User entity.
+ *
+ * @see template_preprocess_user()
+ *
+ * @ingroup themeable
+ */
+#}
+{% for user in users %} {{user.user_name}} {{user.email}} {% endfor %} 
+{% if content %}
+<div{{ attributes.addClass('resource') }}>
+<div class="row resource-view">
+   {% if content.username or content.field_first_name or content.field_last_name or content.field_mobile or content.field_age or content.field_fte or content.field_total_experience or content.field_cerification or content.field_practice or content.field_sector %}
+   <div class="content-first-col col-md-6">
+      {% if username %}
+      <div class="field__label">User Name</div>
+     <div class="field__item">{{username}}</div>
+      {% endif %}
+      {% if email %}
+       <div class="field__label">Email</div>
+     <div class="field__item">{{email}}</div>
+      {% endif %}
+      {% if content.field_first_name %}
+      {{content.field_first_name}}
+      {% endif %}
+      {% if content.field_last_name %}
+      {{content.field_last_name}}
+      {% endif %}
+      {% if content.field_emp_id %}
+      {{content.field_emp_id}}
+      {% endif %}
+      {% if content.field_mobile %}
+      {{content.field_mobile}}
+      {% endif %}
+      {% if content.field_age %}
+      {{content.field_age}}
+      {% endif %}
+      {% if content.field_fte %}
+      {{content.field_fte}}
+      {% endif %}
+      {% if content.field_total_experience %}
+      {{content.field_total_experience}}
+      {% endif %}
+      {% if content.field_cerification %}
+      {{content.field_cerification}}
+      {% endif %}
+      {% if content.field_practice %}
+      {{content.field_practice}}
+      {% endif %}
+      {% if content.field_sector %}
+      {{content.field_sector}}
+      {% endif %}
+   </div>
+   {% endif %}
+   {% if content.field_sub_practice or content.field_service_line or content.field_primary_skill or content.field_date_of_joining or content.field_grade or content.field_location or content.field_fresher or content.field_delivery_region or content.field_age_bucket or content.field_current_status or content.field_delivery_bu %}
+   <div class="content-second-col col-md-6">
+      {% if content.field_sub_practice %}
+      {{content.field_sub_practice}}
+      {% endif %}
+      {% if content.field_service_line %}
+      {{content.field_service_line}}
+      {% endif %}
+      {% if content.field_primary_skill %}
+      {{content.field_primary_skill}}
+      {% endif %}
+      {% if content.field_date_of_joining %}
+      {{content.field_date_of_joining}}
+      {% endif %} 
+      {% if content.field_grade %}
+      {{content.field_grade}}
+      {% endif %}
+      {% if content.field_location %}
+      {{content.field_location}}
+      {% endif %}
+      {% if content.field_fresher %}
+      {{content.field_fresher}}
+      {% endif %}
+      {% if content.field_delivery_region %}
+      {{content.field_delivery_region}}
+      {% endif %}
+      {% if content.field_age_bucket %}
+      {{content.field_age_bucket}}
+      {% endif %}
+      {% if content.field_current_status %}
+      {{content.field_current_status}}
+      {% endif %}
+      {% if content.field_delivery_bu %}
+      {{content.field_delivery_bu}}
+      {% endif %}
+   </div>
+   {% endif %}
+</div>
+</div>
+{% endif %}

@@ -1,0 +1,22 @@
+# Tagging routing definition
+tagging.settings_tab:
+  route_name: tagging.settings
+  title: 'Settings'
+  base_route: tagging.settings
+
+entity.tagging.canonical:
+  route_name: entity.tagging.canonical
+  base_route: entity.tagging.canonical
+  title: 'View'
+
+entity.tagging.edit_form:
+  route_name: entity.tagging.edit_form
+  base_route: entity.tagging.canonical
+  title: 'Edit'
+
+entity.tagging.delete_form:
+  route_name:  entity.tagging.delete_form
+  base_route:  entity.tagging.canonical
+  title: Delete
+  weight: 10
+

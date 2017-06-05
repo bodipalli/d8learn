@@ -1,0 +1,43 @@
+.field--name-field-tags .field__item a:hover {
+  color: #0e4156;
+}
+.flex-direction-nav a {
+  color: #0e4156;
+}
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus,
+.navbar-nav>li>a.is-active,
+.navbar-nav>li>a:hover,
+.dropdown-menu>li>a:hover {
+  background: #0e4156;
+}
+.form-submit {
+  background: none repeat scroll 0 0 #0e4156;
+  border: 1px solid #0583ff;
+}
+.form-submit:hover {
+  background: none repeat scroll 0 0 #0e4156;
+}
+.links li a:hover {
+  color: #0e4156;
+}
+#main-menu .menu ul a:focus,
+#main-menu .menu ul a:hover,
+#main-menu .menu ul a:active {
+  background: #0e4156;
+}
+#main-menu .menu a.active {
+  background: #0e4156;
+}
+#main-menu .menu a:focus,
+#main-menu .menu a:hover,
+#main-menu .menu a:active {
+  background: #0e4156;
+}
+#sitename h2 a:hover,
+#sitename h1 a:hover { color: #0e4156 }
+#page-wrapper {
+  border-top: 3px solid #0e4156;
+}
+a:hover {
+  color: #0e4156;
+}

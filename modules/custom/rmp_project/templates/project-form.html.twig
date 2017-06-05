@@ -1,0 +1,63 @@
+{#
+/**
+ * @file project-form.html.twig
+ * Default theme implementation to present project Form data.
+ *
+ * This template is used when viewing project Add/Edit pages.
+ *
+ *
+ * Available variables:
+ * - form: A list of form items. Use 'form' to print all form items, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_project()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% if form %}
+<div{{ attributes.addClass('project') }}>
+<div class="row rmp-project-form">
+   {{ form.form_build_id }}
+   {{ form.form_token }}
+   {{ form.form_id }}
+   <div class="col-md-4">
+    {% if form.pursuit_id %}
+      {{form.pursuit_id}}
+      {% endif %}
+      </div>
+      <div class="col-md-4">
+      {% if form.client_id %}
+      {{form.client_id}}
+      {% endif %}
+      </div>
+      <div class="col-md-4">
+      {% if form.sbu %}
+      {{form.sbu}}
+      {% endif %}
+      </div>
+      </div>
+      <div class="row">
+       {% if form.reporting_manager %}
+      {{form.reporting_manager}}
+      {% endif %}
+       {% if form.field_project_code_collection %}
+      {{form.field_project_code_collection}}
+      {% endif %}
+   </div>
+   <div class="row">
+       {% if form.fte %}
+      {{form.fte}}
+      {% endif %}
+      <div style="display:none;">
+       {{form.start_date}}
+       {{form.end_date}}
+      </div>
+   </div>
+   {% if form.actions %}
+   {{ form.actions.submit }}
+   {% endif %}
+</div>
+</div>
+{% endif %}

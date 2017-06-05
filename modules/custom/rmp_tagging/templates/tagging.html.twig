@@ -1,0 +1,74 @@
+{#
+/**
+ * @file tagging.html.twig
+ * Default theme implementation to present Tagging data.
+ *
+ * This template is used when viewing Tagging pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_tagging()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% if content %}
+<div{{ attributes.addClass('tagging') }}>
+<div class="row tagging-view">
+   {% if content.name or content.project_tag_name or content.project_tag_code or content.pursuit_id or content.project_id or content.start_date %}
+   <div class="content-first-col col-md-6">
+      {% if content.name %}
+      {{content.name}}
+      {% endif %}
+      {% if content.project_tag_name %}
+      {{content.project_tag_name}}
+      {% endif %}
+      {% if content.project_tag_code %}
+      {{content.project_tag_code}}
+      {% endif %}
+      {% if content.pursuit_id %}
+      {{content.pursuit_id}}
+      {% endif %}
+      {% if content.project_id %}
+      {{content.project_id}}
+      {% endif %}
+      {% if content.start_date %}
+      {{content.start_date}}
+      {% endif %}
+   </div>
+   {% endif %}
+   {% if content.end_date or content.reporting_manager_id or content.resource_id or content.so_code or content.tagging_status %}
+   <div class="content-second-col col-md-6">
+      {% if content.end_date %}
+      {{content.end_date}}
+      {% endif %}
+      {% if content.reporting_manager_id %}
+      {{content.reporting_manager_id}}
+      {% endif %}
+      {% if content.resource_id %}
+      {{content.resource_id}}
+      {% endif %}
+      {% if content.so_code  %}
+      {{content.so_code}}
+      {% endif %}
+      {% if content.tagging_status %}
+      {{content.tagging_status}}
+      {% endif %}
+      {% if content.grade %}
+      {{content.grade}}
+      {% endif %}
+      {% if content.location %}
+      {{content.location}}
+      {% endif %}
+      {% if content.skill %}
+      {{content.skill}}
+      {% endif %}	  
+   </div>
+   {% endif %}
+</div>
+</div>
+{% endif %}

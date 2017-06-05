@@ -1,0 +1,56 @@
+{#
+/**
+ * @file client-form.html.twig
+ * Default theme implementation to present client Form data.
+ *
+ * This template is used when viewing client Add/Edit pages.
+ *
+ *
+ * Available variables:
+ * - form: A list of form items. Use 'form' to print all form items, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_client()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% if form %}
+<div{{ attributes.addClass('client') }}>
+<div class="row rmp-client-form">
+   {{ form.form_build_id }}
+   {{ form.form_token }}
+   {{ form.form_id }}
+   {% if form.name or form.client_email or form.client_phone %}
+   <div class="form-first-col col-md-6">
+      {% if form.name %}
+      {{form.name}}
+      {% endif %}
+      {% if form.client_email %}
+      {{form.client_email}}
+      {% endif %}
+      {% if form.client_phone %}
+      {{form.client_phone}}
+      {% endif %}
+   </div>
+   {% endif %}
+   {% if form.client_location or form.spoc_name or form.industry %}
+   <div class="form-second-col col-md-6">
+      {% if form.client_location %}
+      {{form.client_location}}
+      {% endif %}
+      {% if form.spoc_name %}
+      {{form.spoc_name}}
+      {% endif %}
+      {% if form.industry %}
+      {{form.industry}}
+      {% endif %}
+   </div>
+   {% endif %}
+   {% if form.actions %}
+   {{ form.actions.submit }}
+   {% endif %}
+</div>
+</div>
+{% endif %}

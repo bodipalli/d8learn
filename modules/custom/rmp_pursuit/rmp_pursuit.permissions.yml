@@ -1,0 +1,22 @@
+add pursuit entities:
+  title: 'Create new Pursuit entities'
+
+administer pursuit entities:
+  title: 'Administer Pursuit entities'
+  description: 'Allow to access the administration form to configure Pursuit entities.'
+  restrict access: true
+
+delete pursuit entities:
+  title: 'Delete Pursuit entities'
+
+edit pursuit entities:
+  title: 'Edit Pursuit entities'
+
+access pursuit overview:
+  title: 'Access the Pursuit overview page'
+
+view published pursuit entities:
+  title: 'View published Pursuit entities'
+
+view unpublished pursuit entities:
+  title: 'View unpublished Pursuit entities'

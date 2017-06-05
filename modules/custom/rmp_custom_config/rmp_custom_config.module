@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * Contains rmp_custom_config.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function rmp_custom_config_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the rmp_custom_config module.
+    case 'help.page.rmp_custom_config':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('RMP custom configurations.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function rmp_custom_config_theme() {
+  return [
+    'rmp_custom_config' => [
+      'template' => 'rmp_custom_config',
+      'render element' => 'children',
+    ],
+  ];
+}

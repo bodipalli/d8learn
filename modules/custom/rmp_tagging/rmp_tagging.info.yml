@@ -1,0 +1,7 @@
+name: RMP tagging
+type: module
+description: tagging entity
+core: 8.x
+package: Custom
+dependencies:
+  - rmp_project

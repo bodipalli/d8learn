@@ -1,0 +1,9 @@
+services:
+  rmp_reports.resource_utilization_service:
+    class: Drupal\rmp_reports\Services\RmpResourceUtilizationService
+    arguments: ['@database']
+
+  rmp_reports.import_excel:
+    class: Drupal\rmp_reports\Services\RmpImportExcelService
+    arguments: ['@database']
+

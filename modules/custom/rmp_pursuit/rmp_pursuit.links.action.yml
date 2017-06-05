@@ -1,0 +1,5 @@
+entity.pursuit.add_form:
+  route_name: entity.pursuit.add_form
+  title: 'Add Pursuit'
+  appears_on:
+    - entity.pursuit.collection

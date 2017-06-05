@@ -1,0 +1,14 @@
+{
+  "name": "drupal/rmp_commonfunction",
+  "type": "drupal-module",
+  "description": "Common function throughout the site",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/rmp_commonfunction",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/rmp_commonfunction",
+    "source": "http://cgit.drupalcode.org/rmp_commonfunction"
+  },
+  "require": { }
+}

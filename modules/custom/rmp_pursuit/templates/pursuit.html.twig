@@ -1,0 +1,147 @@
+{#
+/**
+ * @file pursuit.html.twig
+ * Default theme implementation to present Pursuit data.
+ *
+ * This template is used when viewing Pursuit pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_pursuit()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% if content %}
+<div{{ attributes.addClass('pursuit') }}>
+<div class="row pursuit-view">
+   {% if content.thor_id or content.name or content.client_name or content.opp_owner or content.sub_practice or content.practice or content.technology or content.sbu or content.sub_region or content.sector or content.country or content.proposal_lead or content.solution_architect or content.delivery_leader or content.practice_leader or content.wincenter_lead or content.new_client or content.type_of_proposal or content.date_received or content.submission_date or content.description %}
+   <div class="content-first-col col-md-6">
+      {% if content.thor_id %}
+      {{content.thor_id}}
+      {% endif %}
+      {% if content.client_name %}
+      {{content.client_name}}
+      {% endif %}
+      {% if content.opp_owner %}
+      {{content.opp_owner}}
+      {% endif %}
+      {% if content.sub_practice %}
+      {{content.sub_practice}}
+      {% endif %}
+      {% if content.practice %}
+      {{content.practice}}
+      {% endif %}
+      {% if content.technology %}
+      {{content.technology}}
+      {% endif %}
+      {% if content.sbu %}
+      {{content.sbu}}
+      {% endif %}
+      {% if content.sub_region %}
+      {{content.sub_region}}
+      {% endif %}
+      {% if content.sector %}
+      {{content.sector}}
+      {% endif %}
+      {% if content.country %}
+      {{content.country}}
+      {% endif %}
+      {% if content.proposal_lead %}
+      {{content.proposal_lead}}
+      {% endif %}
+      {% if content.solution_architect %}
+      {{content.solution_architect}}
+      {% endif %}
+      {% if content.delivery_leader %}
+      {{content.delivery_leader}}
+      {% endif %}
+      {% if content.practice_leader %}
+      {{content.practice_leader}}
+      {% endif %}
+      {% if content.wincenter_lead %}
+      {{content.wincenter_lead}}
+      {% endif %}
+      {% if content.new_client %}
+      {{content.new_client}}
+      {% endif %}
+      {% if content.type_of_proposal %}
+      {{content.type_of_proposal}}
+      {% endif %}
+      {% if content.date_received %}
+      {{content.date_received}}
+      {% endif %}
+      {% if content.submission_date %}
+      {{content.submission_date}}
+      {% endif %}
+      {% if content.description %}
+      <p>{{content.description}}</p>
+      {% endif %}
+   </div>
+   {% endif %}
+   {% if content.win_lost_month or content.deal_value or content.india_deal_value or content.pursuit_status or content.fte or content.onshore_resources or content.offshore_resources or content.start_date or content.end_date or content.effort_wincenter or content.effort_sme or content.effort_delivery or content.archive or content.remarks or content.final_document or content.item_type or content.path_info %}
+   <div class="content-second-col col-md-6">
+      {% if content.win_lost_month %}
+      {{content.win_lost_month}}
+      {% endif %}
+      {% if content.deal_value %}
+      {{content.deal_value}}
+      {% endif %}
+      {% if content.india_deal_value %}
+      {{content.india_deal_value}}
+      {% endif %}
+      {% if content.probability_percentage %}
+      {{content.probability_percentage}}
+      {% endif %}
+      {% if content.pursuit_status %}
+      {{content.pursuit_status}}
+      {% endif %}
+      {% if content.fte %}
+      {{content.fte}}
+      {% endif %}
+      {% if content.onshore_resources %}
+      {{content.onshore_resources}}
+      {% endif %}
+      {% if content.offshore_resources %}
+      {{content.offshore_resources}}
+      {% endif %}
+      {% if content.start_date %}
+      {{content.start_date}}
+      {% endif %}
+      {% if content.end_date %}
+      {{content.end_date}}
+      {% endif %}
+      {% if content.effort_wincenter %}
+      {{content.effort_wincenter}}
+      {% endif %}
+      {% if content.effort_sme %}
+      {{content.effort_sme}}
+      {% endif %}
+      {% if content.effort_delivery %}
+      {{content.effort_delivery}}
+      {% endif %}
+      {% if content.archive %}
+      {{content.archive}}
+      {% endif %}
+      {% if content.remarks %}
+      {{content.remarks}}
+      {% endif %}
+      {% if content.final_document %}
+      {{content.final_document}}
+      {% endif %}
+      {% if content.item_type %}
+      {{content.item_type}}
+      {% endif %}
+      {% if content.path_info %}
+      {{content.path_info}}
+      {% endif %} 
+   </div>
+   {% endif %}
+</div>
+</div>
+{% endif %}
+

@@ -1,0 +1,24 @@
+rmp_resource_mapping_form.resource_mapping_form:
+  path: '/admin/structure/resource_mapping/{project_id}'
+  defaults:
+    _form: '\Drupal\rmp_resource_mapping_form\Form\ResourceMappingForm'
+    _title: 'Resource Mapping'
+  requirements:
+    _permission: 'add tagging entities'
+    _access: 'TRUE'
+rmp_resource_mapping_form.tagging_entity_custom_add:
+  path: '/rmp_resource_mapping_form/tagging_entity_custom_add/{project_id}'
+  defaults:
+    _form: '\Drupal\rmp_resource_mapping_form\Form\TaggingEntityCustomAdd'
+    _title: 'Add Resource'
+  requirements:
+    _permission: 'add tagging entities'
+    _access: 'TRUE'    
+rmp_resource_mapping_form.backend_task_updatedata:
+  path: '/rmp_resource_mapping_form/getdata/{tagging_id}'
+  defaults:
+    _controller: '\Drupal\rmp_resource_mapping_form\Controller\BackendTask::updatedata'
+    _title: 'Backend'
+  requirements:
+    _permission: 'access content'
+    _access: 'TRUE'

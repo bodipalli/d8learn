@@ -1,0 +1,14 @@
+
+# Pursuit menu items definition
+entity.pursuit.collection:
+  title: 'Pursuit list'
+  route_name: entity.pursuit.collection
+  description: 'List Pursuit entities'
+  parent: system.admin_structure
+  weight: 100
+
+pursuit.admin.structure.settings:
+  title: Pursuit settings
+  description: 'Configure Pursuit entities'
+  route_name: pursuit.settings
+  parent: system.admin_structure

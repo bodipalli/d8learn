@@ -1,0 +1,80 @@
+{#
+/**
+ * @file tagging-form.html.twig
+ * Default theme implementation to present tagging Form data.
+ *
+ * This template is used when viewing tagging Add/Edit pages.
+ *
+ *
+ * Available variables:
+ * - form: A list of form items. Use 'form' to print all form items, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_tagging()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% if form %}
+<div{{ attributes.addClass('tagging') }}>
+<div class="row rmp-tagging-form">
+   {{ form.form_build_id }}
+   {{ form.form_token }}
+   {{ form.form_id }}
+   {% if form.name or form.project_tag_name or form.project_tag_code or form.pursuit_id or form.project_id or form.start_date %}
+   <div class="form-first-col col-md-6">
+      {% if form.name %}
+      {{form.name}}
+      {% endif %}
+      {% if form.project_tag_name %}
+      {{form.project_tag_name}}
+      {% endif %}
+      {% if form.project_tag_code %}
+      {{form.project_tag_code}}
+      {% endif %}
+      {% if form.pursuit_id %}
+      {{form.pursuit_id}}
+      {% endif %}
+      {% if form.project_id %}
+      {{form.project_id}}
+      {% endif %}
+      {% if form.start_date %}
+      {{form.start_date}}
+      {% endif %}
+      {% if form.grade %}
+      {{form.grade}}
+      {% endif %}	
+      {% if form.skill %}
+      {{form.skill}}
+      {% endif %}	  
+   </div>
+   {% endif %}
+   {% if form.end_date or form.reporting_manager_id or form.resource_id or form.so_code or form.tagging_status %}
+   <div class="form-second-col col-md-6">
+      {% if form.end_date %}
+      {{form.end_date}}
+      {% endif %}
+      {% if form.reporting_manager_id %}
+      {{form.reporting_manager_id}}
+      {% endif %}
+      {% if form.resource_id %}
+      {{form.resource_id}}
+      {% endif %}
+      {% if form.so_code  %}
+      {{form.so_code}}
+      {% endif %}
+      {% if form.tagging_status %}
+      {{form.tagging_status}}
+      {% endif %} 
+      {% if form.location %}
+      {{form.location}}
+      {% endif %}	  
+   </div>
+   {% endif %}
+   {% if form.actions %}
+   {{ form.actions.submit }}
+   {% endif %}
+</div>
+</div>
+{% endif %}

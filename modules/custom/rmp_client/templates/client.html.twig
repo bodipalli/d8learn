@@ -1,0 +1,50 @@
+{#
+/**
+ * @file client.html.twig
+ * Default theme implementation to present Client data.
+ *
+ * This template is used when viewing Client pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_client()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% if content %}
+<div{{ attributes.addClass('client') }}>
+<div class="row client-view">
+   {% if content.name or content.client_email or content.client_phone %}
+   <div class="content-first-col col-md-6">
+      {% if content.name %}
+      {{content.name}}
+      {% endif %}
+      {% if content.client_email %}
+      {{content.client_email}}
+      {% endif %}
+      {% if content.client_phone %}
+      {{content.client_phone}}
+      {% endif %}
+   </div>
+   {% endif %}
+   {% if content.client_location or content.spoc_name or content.industry %}
+   <div class="content-second-col col-md-6">
+      {% if content.client_location %}
+      {{content.client_location}}
+      {% endif %}
+      {% if content.spoc_name %}
+      {{content.spoc_name}}
+      {% endif %}
+      {% if content.industry %}
+      {{content.industry}}
+      {% endif %}
+   </div>
+   {% endif %}
+</div>
+</div>
+{% endif %}

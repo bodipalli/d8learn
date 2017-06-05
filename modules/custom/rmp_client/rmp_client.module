@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Contains rmp_client.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function rmp_client_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the rmp_client module.
+    case 'help.page.rmp_client':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Client') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function rmp_client_theme() {
+  $theme = [];
+  $theme['client'] = array(
+    'render element' => 'elements',
+    'file' => 'client.page.inc',
+    'template' => 'client',
+  );
+  $theme['client_form'] = array(
+    'render element' => 'form',
+    'file' => 'client.page.inc',
+    'template' => 'client-form',
+  );
+  return $theme;
+}

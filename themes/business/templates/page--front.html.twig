@@ -1,0 +1,54 @@
+<div id="page-wrapper" class="container">
+
+  <header role="banner" id="header" class="clearfix">
+    {{ page.header }}
+  </header>
+
+  {# Home Highlight regions. #}
+  {% if page.home_high1 or page.home_high2 or page.home_high3 or page.home_highlight_full %}
+    <div id="home-highlights" class="row">
+      {% if page.home_high1 %}
+        <div class="home-high-1 col-md-4">{{ page.home_high1 }}</div>
+      {% endif %}
+      {% if page.home_high2 %}
+        <div class="home-high-2 col-md-4">{{ page.home_high2 }}</div>
+      {% endif %}
+      {% if page.home_high3 %}
+        <div class="home-high-3 col-md-4">{{ page.home_high3 }}</div>
+      {% endif %}
+      {% if page.home_highlight_full %}
+        <div class="home-highlight-full col-md-12">{{ page.home_highlight_full }}</div>
+      {% endif %}
+    </div>
+  {% endif %}
+  
+  {# Bottom regions. #}
+  {% if page.footer_first or page.footer_second or page.footer_third or page.footer_fourth or page.footer_fifth  %}
+    <div id="footer-saran" class="row">
+      <div id="footer-wrap">
+        {% if page.footer_first %}
+          <div class="footer-1 col-md-3">{{ page.footer_first }}</div>
+        {% endif %}
+        {% if page.footer_second %}
+          <div class="footer-2 col-md-3">{{ page.footer_second }}</div>
+        {% endif %}
+        {% if page.footer_third %}
+          <div class="footer-3 col-md-3">{{ page.footer_third }}</div>
+        {% endif %}
+        {% if page.footer_fourth %}
+          <div class="footer-4 col-md-3">{{ page.footer_fourth }}</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="clear"></div>
+  {% endif %}
+
+  <div class="clear"></div>
+  <div id="copyright">
+  {% if copyright.footer_copyright %}
+    {{ copyright.footer_copyright }}
+  {% endif %}
+
+  </div>
+
+</div>{# /#wrap #}

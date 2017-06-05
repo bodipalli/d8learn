@@ -1,0 +1,155 @@
+{#
+/**
+ * @file pursuit-form.html.twig
+ * Default theme implementation to present Pursuit Form data.
+ *
+ * This template is used when viewing Pursuit Add/Edit pages.
+ *
+ *
+ * Available variables:
+ * - form: A list of form items. Use 'form' to print all form items, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_pursuit()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% if form %}
+<div{{ attributes.addClass('pursuit') }}>
+<div class="row rmp-pursuit-form">
+   {{ form.form_build_id }}
+   {{ form.form_token }}
+   {{ form.form_id }}
+   {% if form.thor_id or form.name or form.client_name or form.opp_owner or form.sub_practice or form.practice or form.technology or form.sbu or form.sub_region or form.sector or form.country or form.proposal_lead or form.solution_architect or form.delivery_leader or form.practice_leader or form.wincenter_lead or form.new_client or form.type_of_proposal or form.date_received or form.submission_date or form.description %}
+   <div class="form-first-col col-md-6">
+      {% if form.thor_id %}
+      {{form.thor_id}}
+      {% endif %}
+      {% if form.name %}
+      {{form.name}}
+      {% endif %}
+      {% if form.client_name %}
+      {{form.client_name}}
+      {% endif %}
+      {% if form.opp_owner %}
+      {{form.opp_owner}}
+      {% endif %}
+      {% if form.sub_practice %}
+      {{form.sub_practice}}
+      {% endif %}
+      {% if form.practice %}
+      {{form.practice}}
+      {% endif %}
+      {% if form.technology %}
+      {{form.technology}}
+      {% endif %}
+      {% if form.sbu %}
+      {{form.sbu}}
+      {% endif %}
+      {% if form.sub_region %}
+      {{form.sub_region}}
+      {% endif %}
+      {% if form.sector %}
+      {{form.sector}}
+      {% endif %}
+      {% if form.country %}
+      {{form.country}}
+      {% endif %}
+      {% if form.proposal_lead %}
+      {{form.proposal_lead}}
+      {% endif %}
+      {% if form.solution_architect %}
+      {{form.solution_architect}}
+      {% endif %}
+      {% if form.delivery_leader %}
+      {{form.delivery_leader}}
+      {% endif %}
+      {% if form.practice_leader %}
+      {{form.practice_leader}}
+      {% endif %}
+      {% if form.wincenter_lead %}
+      {{form.wincenter_lead}}
+      {% endif %}
+      {% if form.new_client %}
+      {{form.new_client}}
+      {% endif %}
+      {% if form.type_of_proposal %}
+      {{form.type_of_proposal}}
+      {% endif %}
+      {% if form.date_received %}
+      {{form.date_received}}
+      {% endif %}
+      {% if form.submission_date %}
+      {{form.submission_date}}
+      {% endif %}
+      {% if form.description %}
+      {{form.description}}
+      {% endif %}
+   </div>
+   {% endif %}
+   {% if form.win_lost_month or form.deal_value or form.india_deal_value or form.pursuit_status or form.fte or form.onshore_resources or form.offshore_resources or form.start_date or form.end_date or form.effort_wincenter or form.effort_sme or form.effort_delivery or form.archive or form.remarks or form.final_document or form.item_type or form.path_info %}
+   <div class="form-second-col col-md-6">
+      {% if form.win_lost_month %}
+      {{form.win_lost_month}}
+      {% endif %}
+      {% if form.deal_value %}
+      {{form.deal_value}}
+      {% endif %}
+      {% if form.india_deal_value %}
+      {{form.india_deal_value}}
+      {% endif %}
+      {% if form.probability_percentage %}
+      {{form.probability_percentage}}
+      {% endif %}
+      {% if form.pursuit_status %}
+      {{form.pursuit_status}}
+      {% endif %}
+      {% if form.fte %}
+      {{form.fte}}
+      {% endif %}
+      {% if form.onshore_resources %}
+      {{form.onshore_resources}}
+      {% endif %}
+      {% if form.offshore_resources %}
+      {{form.offshore_resources}}
+      {% endif %}
+      {% if form.start_date %}
+      {{form.start_date}}
+      {% endif %}
+      {% if form.end_date %}
+      {{form.end_date}}
+      {% endif %}
+      {% if form.effort_wincenter %}
+      {{form.effort_wincenter}}
+      {% endif %}
+      {% if form.effort_sme %}
+      {{form.effort_sme}}
+      {% endif %}
+      {% if form.effort_delivery %}
+      {{form.effort_delivery}}
+      {% endif %}
+      {% if form.archive %}
+      {{form.archive}}
+      {% endif %}
+      {% if form.remarks %}
+      {{form.remarks}}
+      {% endif %}
+      {% if form.final_document %}
+      {{form.final_document}}
+      {% endif %}
+      {% if form.item_type %}
+      {{form.item_type}}
+      {% endif %}
+      {% if form.path_info %}
+      {{form.path_info}}
+      {% endif %} 
+   </div>
+   {% endif %}
+   {% if form.actions %}
+   {{ form.actions.submit }}
+   {% endif %}
+</div>
+</div>
+{% endif %}

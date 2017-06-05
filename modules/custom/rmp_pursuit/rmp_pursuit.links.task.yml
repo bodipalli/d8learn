@@ -1,0 +1,22 @@
+# Pursuit routing definition
+pursuit.settings_tab:
+  route_name: pursuit.settings
+  title: 'Settings'
+  base_route: pursuit.settings
+
+entity.pursuit.canonical:
+  route_name: entity.pursuit.canonical
+  base_route: entity.pursuit.canonical
+  title: 'View'
+
+entity.pursuit.edit_form:
+  route_name: entity.pursuit.edit_form
+  base_route: entity.pursuit.canonical
+  title: 'Edit'
+
+entity.pursuit.delete_form:
+  route_name:  entity.pursuit.delete_form
+  base_route:  entity.pursuit.canonical
+  title: Delete
+  weight: 10
+

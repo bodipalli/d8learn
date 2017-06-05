@@ -1,0 +1,108 @@
+{#
+/**
+ * @file
+ * Default theme implementation to present all user data.
+ *
+ * This template is used when viewing a registered user's page,
+ * e.g., example.com/user/123. 123 being the user's ID.
+ *
+ * Available variables:
+ * - form: A list of form items. Use 'form' to print all form, or
+ *   print a subset such as 'form.field_example'. Fields attached to a user
+ *   such as 'user_picture' are available as 'form.user_picture'.
+ * - attributes: HTML attributes for the container element.
+ * - user: A Drupal User entity.
+ *
+ * @see template_preprocess_user()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% if form %}
+<div{{ attributes.addClass('resource') }}>
+<div class="row rmp-resource-form">
+   {{ form.form_build_id }}
+   {{ form.form_token }}
+   {{ form.form_id }}
+   {% if form.account or form.field_first_name or form.field_last_name %}
+   <div class="form-first-col col-md-6">
+      {% if form.account %}
+      {{form.account}}
+      {% endif %}
+      {% if form.field_first_name %}
+      {{form.field_first_name}}
+      {% endif %}
+      {% if form.field_last_name %}
+      {{form.field_last_name}}
+      {% endif %}
+      {% if form.field_emp_id %}
+      {{form.field_emp_id}}
+      {% endif %}
+   </div>
+   {% endif %}
+   {% if form.field_mobile or form.field_age or form.field_fte or form.field_total_experience or form.field_cerification or form.field_practice or form.field_sector or form.field_sub_practice or form.field_service_line or form.field_primary_skill or form.field_date_of_joining or form.field_grade or form.field_location or form.field_fresher or form.field_delivery_region or form.field_age_bucket or form.field_current_status or form.field_delivery_bu %}
+   <div class="form-second-col col-md-6">
+   	  {% if form.field_mobile %}
+      {{form.field_mobile}}
+      {% endif %}
+      {% if form.field_age %}
+      {{form.field_age}}
+      {% endif %}
+      {% if form.field_fte %}
+      {{form.field_fte}}
+      {% endif %}
+      {% if form.field_total_experience %}
+      {{form.field_total_experience}}
+      {% endif %}
+      {% if form.field_cerification %}
+      {{form.field_cerification}}
+      {% endif %}
+      {% if form.field_practice %}
+      {{form.field_practice}}
+      {% endif %}
+      {% if form.field_sector %}
+      {{form.field_sector}}
+      {% endif %}
+      {% if form.field_sub_practice %}
+      {{form.field_sub_practice}}
+      {% endif %}
+      {% if form.field_service_line %}
+      {{form.field_service_line}}
+      {% endif %}
+      {% if form.field_primary_skill %}
+      {{form.field_primary_skill}}
+      {% endif %}
+      {% if form.field_date_of_joining %}
+      {{form.field_date_of_joining}}
+      {% endif %} 
+      {% if form.field_grade %}
+      {{form.field_grade}}
+      {% endif %}
+      {% if form.field_location %}
+      {{form.field_location}}
+      {% endif %}
+      {% if form.field_fresher %}
+      {{form.field_fresher}}
+      {% endif %}
+      {% if form.field_delivery_region %}
+      {{form.field_delivery_region}}
+      {% endif %}
+      {% if form.field_age_bucket %}
+      {{form.field_age_bucket}}
+      {% endif %}
+      {% if form.field_current_status %}
+      {{form.field_current_status}}
+      {% endif %}
+      {% if form.field_delivery_bu %}
+      {{form.field_delivery_bu}}
+      {% endif %}
+   </div>
+   {% endif %}
+   {% if form.actions %}
+   {{ form.actions.submit }}
+   {% endif %}
+</div>
+</div>
+{% endif %}
+

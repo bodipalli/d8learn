@@ -1,0 +1,5 @@
+name: RMP Client Entity
+type: module
+description: RMP Client Entity Module
+core: 8.x
+package: Custom

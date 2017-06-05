@@ -1,0 +1,5 @@
+name: rmp_commonfunction
+type: module
+description: Common function throughout the site
+core: 8.x
+package: Custom

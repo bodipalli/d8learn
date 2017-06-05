@@ -1,0 +1,14 @@
+{
+  "name": "drupal/rmp_reports",
+  "type": "drupal-module",
+  "description": "RMP reports",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/rmp_reports",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/rmp_reports",
+    "source": "http://cgit.drupalcode.org/rmp_reports"
+  },
+  "require": { }
+}

@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Contains rmp_resource_mapping_form.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function rmp_resource_mapping_form_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the rmp_resource_mapping_form module.
+    case 'help.page.rmp_resource_mapping_form':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Resources are mapping with this form module.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function rmp_resource_mapping_form_theme() {
+  
+  $theme = [];
+  $theme['resource_mapping_form'] = array(
+    'render element' => 'form',
+    'template' => 'resource_mapping_form',
+  );
+  $theme['tagging_entity_custom_add_form'] = array(
+    'render element' => 'form',
+    'template' => 'tagging_entity_custom_add_form',
+  );
+  return $theme;
+}

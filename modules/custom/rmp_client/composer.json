@@ -1,0 +1,14 @@
+{
+  "name": "drupal/rmp_client",
+  "type": "drupal-module",
+  "description": "Client",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/rmp_client",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/rmp_client",
+    "source": "http://cgit.drupalcode.org/rmp_client"
+  },
+  "require": { }
+}

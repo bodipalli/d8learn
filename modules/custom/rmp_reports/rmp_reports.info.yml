@@ -1,0 +1,5 @@
+name: RMP Reports
+type: module
+description: RMP reports
+core: 8.x
+package: Custom

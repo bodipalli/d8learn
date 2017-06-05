@@ -1,0 +1,8 @@
+name: rmp_project
+type: module
+description: Project module
+core: 8.x
+package: Custom
+dependencies:
+  - rmp_client
+  - rmp_pursuit
